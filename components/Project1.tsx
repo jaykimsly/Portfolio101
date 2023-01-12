@@ -26,7 +26,7 @@ export default function Project({}: Props) {
        </h4>
        <p className='text-lg text-center md:text-left'>
        Sneaker Wear is a store app for sneakers as a person who want to buy sneakers 
-       you may browse for shoe's here and order them to some of the providers who will
+       you may browse for shoe&apos;s here and order them to some of the providers who will
 
        </p>
      </div>
