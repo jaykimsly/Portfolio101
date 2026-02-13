@@ -43,15 +43,15 @@ export default function ContactMe() {
 
                 <div className='space-y-10 '>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <span className='text-brand text-2xl'>&#128241;</span>
+                        <span className='text-brand text-2xl icon-pulse'>&#128241;</span>
                         <p className='text-2xl'>{personal.phone}</p>
                     </div>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <span className='text-brand text-2xl'>&#9993;&#65039;</span>
+                        <span className='text-brand text-2xl icon-pulse' style={{ animationDelay: '0.4s' }}>&#9993;&#65039;</span>
                         <p className='text-2xl'>{personal.email.toUpperCase()}</p>
                     </div>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <span className='text-brand text-2xl'>&#128205;</span>
+                        <span className='text-brand text-2xl icon-pulse' style={{ animationDelay: '0.8s' }}>&#128205;</span>
                         <p className='text-lg md:text-2xl'>{personal.location}</p>
                     </div>
                 </div>

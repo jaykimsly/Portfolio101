@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx next build)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(for pid in 39884 29624 28904 29340 47116 44064 42360 48096 48376 48180 46724 40016 22752)",
+      "Bash(do taskkill //PID $pid //F)",
+      "Bash(done)",
+      "Bash(git add:*)"
+    ]
+  }
+}

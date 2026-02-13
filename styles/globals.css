@@ -41,4 +41,19 @@
         text-gray-500 placeholder-gray-500 transition-all focus:border-brand/40
         focus:text-brand/40
     }
+    .icon-pulse{
+        @apply inline-block;
+        animation: iconPulse 2s ease-in-out infinite;
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .icon-pulse {
+        animation: none;
+    }
 }
