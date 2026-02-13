@@ -1,10 +1,8 @@
 import React from 'react'
 import { motion } from "framer-motion"
-type Props = {}
 
-export default function BackgroundCircle({ }: Props) {
+export default function BackgroundCircle() {
     return (
-
         <motion.div initial={{
             opacity: 0,
         }} animate={{
@@ -18,7 +16,7 @@ export default function BackgroundCircle({ }: Props) {
             <div className='absolute border border-[#333333] rounded-full h-[200px] w-[200px] mt-52 animate-ping' />
             <div className='border border-[#333333] rounded-full h-[300px] w-[300px] absolute mt-52 animate-ping' />
             <div className='border border-[#333333] rounded-full h-[500px] w-[500px] absolute mt-52 animate-ping' />
-            <div className='absolute border border-[#f7ab0a] rounded-full opacity-20 h-[200px] w-[200px] mt-52 animate-pulse' />
+            <div className='absolute border border-brand rounded-full opacity-20 h-[200px] w-[200px] mt-52 animate-pulse' />
             <div className='absolute border border-[#333333] rounded-full h-[600px] w-[600px] mt-52 ' />
         </motion.div>
     )

@@ -1,14 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: {
+          DEFAULT: '#f7ab0a',
+          light: '#f9c04e',
+          dark: '#c48a08',
+        },
+        surface: {
+          DEFAULT: 'rgb(36,36,36)',
+          card: '#292929',
+        },
+      },
+    },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [],
 }

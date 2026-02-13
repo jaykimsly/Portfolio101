@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion'
 import React from 'react'
+import { ExperienceEntry } from '../data/types';
 
-type Props = {}
+type Props = {
+    experience: ExperienceEntry;
+}
 
-export default function ExperienceCard({ }: Props) {
+export default function ExperienceCard({ experience }: Props) {
     return (
         <article className='flex flex-col rounded-lg items-center space-y-7 flex-shrink-0
-                            w-[500px] md:w-[600px] xl:w-[900px] snap-center bg-[#54515129] p-10 hover:opacity-100
+                            w-[500px] md:w-[600px] xl:w-[900px] snap-center bg-surface-card/20 p-10 hover:opacity-100
                             opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden'>
             <motion.img
                 initial={{
@@ -16,48 +19,31 @@ export default function ExperienceCard({ }: Props) {
                 transition={{ duration: 1.2 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className='w-32 h-32 rounded-full xl:w-[200px] xl:h-[200]
+                className='w-32 h-32 rounded-full xl:w-[200px] xl:h-[200px]
                             object-cover object-center'
-                src="https://media-exp1.licdn.com/dms/image/C4D0BAQHDZDBY96J30w/company-logo_200_200/0/1519881436630?e=2147483647&v=beta&t=gVQjIAoKIpfArZda-1xFuTnLWyTbftA3r3q1siHxp7s"
-                alt="" />
+                src={experience.companyLogo}
+                alt={experience.company} />
 
             <div className='px-0 md:px-10'>
-                <h4 className='text-4xl font-light'>Full-Stack Developer</h4>
-                <p className='font-bold text-2xl mt-1'>The Digital Academy</p>
+                <h4 className='text-4xl font-light'>{experience.role}</h4>
+                <p className='font-bold text-2xl mt-1'>{experience.company}</p>
                 <div className='flex space-x-2 my-2'>
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/angularjs-original.svg?size=128&color=currentColor"
-                        alt="" />
-
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/mongodb-original-wordmark.svg?size=128&color=currentColor"
-                        alt="" />
-
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/nodejs-original-wordmark.svg?size=128&color=currentColor"
-                        alt="" />
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/postgresql-original-wordmark.svg?size=128&color=currentColor"
-                        alt="" />
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/git-original-wordmark.svg?size=128&color=currentColor"
-                        alt="" />
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/gitlab-original-wordmark.svg?size=128&color=currentColor"
-                        alt="" />
-                    <motion.img className='h-10 w-10 rounded-full'
-                        src="https://icongr.am/devicon/typescript-plain.svg?size=128&color=currentColor"
-                        alt="" />
-
+                    {experience.techStack.map((tech) => (
+                        <motion.img
+                            key={tech.name}
+                            className='h-10 w-10 rounded-full'
+                            src={tech.iconUrl}
+                            alt={tech.name}
+                        />
+                    ))}
                 </div>
                 <p className='uppercase py-5 text-gray-300'>
-                    01 June 2022 - Current</p>
+                    {experience.period}</p>
 
                 <ul className='list-disc space-y-4 ml-5 text-lg'>
-                    <li>Creatinng applications</li>
-                    <li>Mean Stack Developer</li>
-                    <li>Pean Stack Developer</li>
-
+                    {experience.points.map((point, index) => (
+                        <li key={index}>{point}</li>
+                    ))}
                 </ul>
             </div>
         </article>

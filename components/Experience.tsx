@@ -1,14 +1,11 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import ExperienceCard from './ExperienceCard'
-import ExperienceCard1 from './ExperienceCard1'
-import ExperienceCard2 from './ExperienceCard2'
-import ExperienceCard3 from './ExperienceCard3'
-type Props = {}
+import { portfolioData } from '../data/portfolio';
 
-export default function  Experience({}: Props) {
+export default function Experience() {
   return (
-    <motion.div 
+    <motion.div
     initial = {{opacity:0}}
     whileInView={{opacity:1}}
     transition={{duration:1.5}}
@@ -18,16 +15,11 @@ export default function  Experience({}: Props) {
       Experience
       </h3>
 
-      <div className='w-full flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory
-      scrollbar scrollbar-track-gray-400/20
-      scrollbar-thumb-[#f7ab0a]/80'>
-
-        <ExperienceCard />
-        <ExperienceCard1 />
-        <ExperienceCard2 />
-        {/* <ExperienceCard3 /> */}
+      <div className='w-full flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory'>
+        {portfolioData.experience.map((entry) => (
+          <ExperienceCard key={entry.id} experience={entry} />
+        ))}
       </div>
       </motion.div>
-      
   )
 }

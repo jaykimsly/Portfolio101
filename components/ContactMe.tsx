@@ -1,25 +1,34 @@
-import React from 'react'
-import { PhoneIcon, MapPinIcon, EnvelopeIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
+import { portfolioData } from '../data/portfolio';
+import { ContactFormData } from '../data/types';
 
-type Inputs = {
-    name: string,
-    email: string,
-    subject: string,
-    message: string,
-  };
+type FormStatus = 'idle' | 'sending' | 'sent' | 'error';
 
-type Props = {}
+export default function ContactMe() {
+    const { personal } = portfolioData;
+    const [status, setStatus] = useState<FormStatus>('idle');
 
+    const { register, handleSubmit, reset } = useForm<ContactFormData>();
 
-
-export default function ContactMe({ }: Props) {
-
-    const { register, handleSubmit,} = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (formData) => {
-        window.location.href = `mailto:jnmhlongo@hotmail.com?subject=${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} (${formData.email})`;
+    const onSubmit: SubmitHandler<ContactFormData> = async (formData) => {
+        setStatus('sending');
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            if (!res.ok) throw new Error('Failed to send');
+            setStatus('sent');
+            reset();
+            setTimeout(() => setStatus('idle'), 4000);
+        } catch {
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 4000);
+        }
     };
-  
+
     return (
         <div className='h-screen flex relative flex-col text-center md:text-left md:flex-row
                         max-w-7xl px-10 justify-evenly items-center'>
@@ -28,37 +37,67 @@ export default function ContactMe({ }: Props) {
             </h3>
             <div className='flex flex-col space-y-10'>
                 <h4 className='text-4xl font font-semibold text-center'>
-                    I have got just what you need.{" "}
-                    <span className='decoration-[#f7ab0a]/50 underline'>Get in Touch.</span>
+                    Need a developer? Let&apos;s talk.{" "}
+                    <span className='decoration-brand/50 underline'>Hire Me.</span>
                 </h4>
 
                 <div className='space-y-10 '>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <PhoneIcon className='text-[#f7ab0a] h-7 w-7 animate-pulse' />
-                        <p className='text-2xl'>+27760575009</p>
+                        <span className='text-brand text-2xl'>&#128241;</span>
+                        <p className='text-2xl'>{personal.phone}</p>
                     </div>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <EnvelopeIcon className='text-[#f7ab0a] h-7 w-7 animate-pulse' />
-                        <p className='text-2xl'>JNMHLONGO@HOTMAIL.COM</p>
+                        <span className='text-brand text-2xl'>&#9993;&#65039;</span>
+                        <p className='text-2xl'>{personal.email.toUpperCase()}</p>
                     </div>
                     <div className='flex items-center space-x-5 justify-center'>
-                        <MapPinIcon className='text-[#f7ab0a] h-7 w-7 animate-pulse' />
-                        <p className='text-2xl'>Stanza Bopape Pretoria</p>
+                        <span className='text-brand text-2xl'>&#128205;</span>
+                        <p className='text-lg md:text-2xl'>{personal.location}</p>
                     </div>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col space-y-2 w-fit mx-auto'>
                     <div className='flex space-x-2'>
-                        <input {...register('name')} placeholder='Name' className='contactInput' type="text" />
-                        <input {...register('email')} placeholder='Email' className='contactInput' type="email" />
+                        <input
+                            {...register('name', { required: true })}
+                            placeholder='Name'
+                            className='contactInput'
+                            type="text"
+                            aria-label="Your name"
+                        />
+                        <input
+                            {...register('email', { required: true })}
+                            placeholder='Email'
+                            className='contactInput'
+                            type="email"
+                            aria-label="Your email"
+                        />
                     </div>
-                    <input {...register('subject')} placeholder='Subject' className='contactInput' type="text" />
-                    <textarea {...register('message')} placeholder='Message' className='contactInput'></textarea>
-                    <button type='submit' className='bg-[#f7ab0a] py-5 px-10 rounded-md text-black font-bold text-lg'>Submit</button>
+                    <input
+                        {...register('subject', { required: true })}
+                        placeholder='Subject'
+                        className='contactInput'
+                        type="text"
+                        aria-label="Subject"
+                    />
+                    <textarea
+                        {...register('message', { required: true })}
+                        placeholder='Message'
+                        className='contactInput'
+                        aria-label="Message"
+                    ></textarea>
+                    <button
+                        type='submit'
+                        disabled={status === 'sending'}
+                        className='bg-brand py-5 px-10 rounded-md text-black font-bold text-lg disabled:opacity-50 transition-opacity'
+                    >
+                        {status === 'sending' ? 'Sending...' :
+                         status === 'sent' ? 'Message Sent!' :
+                         status === 'error' ? 'Failed - Try Again' :
+                         'Submit'}
+                    </button>
                 </form>
             </div>
         </div>
     )
-
-    // https://res.cloudinary.com/jaykimsly/image/upload/v1668129061/Portfolio/IMG_20200922_090140_qmujtl.jpg
 }
